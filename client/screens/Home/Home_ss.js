@@ -30,7 +30,7 @@ export const HomeStyles = StyleSheet.create({
     homeGreetingText: {
         fontSize: 20,
         fontWeight: "600",
-        color: "green",
+        color: "darkblue",
     },
     homeGreetingIcon: {
         height: "100%",
@@ -87,7 +87,7 @@ export const HomeStyles = StyleSheet.create({
     homeAdminControlsText: {
         fontSize: 20,
         fontWeight: "600",
-        color: "green"
+        color: "darkblue"
     },
     homeBGImage: {
         flex: 1,

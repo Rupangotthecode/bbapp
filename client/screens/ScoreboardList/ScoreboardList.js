@@ -18,7 +18,7 @@ const ScoreboardList = () => {
   return (
     <View style={{ height: "100%", width: "100%", justifyContent: "flex-start" }}>
       <View style={SBLSS.SBLheaderContainer}>
-        <Text style={{ fontSize: 22, fontWeight: "600", color: "green" }}>All Scores</Text>
+        <Text style={{ fontSize: 22, fontWeight: "600", color: "darkblue" }}>All Scores</Text>
       </View>
 
       <ScrollView contentContainerStyle={SBLSS.SBLmainContainer}>

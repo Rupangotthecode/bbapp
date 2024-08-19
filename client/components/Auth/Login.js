@@ -26,8 +26,8 @@ const Login = (props) => {
             <View style={authCompStyleSheet.signupLowerContainer}>
                 <TextInput
                     label="Username"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={username}
                     placeholder='Enter your username.'
@@ -35,20 +35,20 @@ const Login = (props) => {
                 />
                 <TextInput
                     label="Password"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={password}
                     placeholder='Enter your password.'
                     onChangeText={text => setPassword(text)}
                     secureTextEntry
                 />
-                <Button buttonColor="green" mode="contained" onPress={() => handleLogin()}>
+                <Button buttonColor="darkblue" mode="contained" onPress={() => handleLogin()}>
                     Login
                 </Button>
                 <View style={authCompStyleSheet.signupSwitcherContainer}>
                     <Text>Create admin account?</Text>
-                    <Button mode="text" textColor='green' onPress={() => props.setIsSignup(true)} compact={true}>
+                    <Button mode="text" textColor='darkblue' onPress={() => props.setIsSignup(true)} compact={true}>
                         Sign Up
                     </Button>
                 </View>

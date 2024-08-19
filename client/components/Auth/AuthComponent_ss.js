@@ -14,7 +14,7 @@ export const authCompStyleSheet = StyleSheet.create({
     signupHeaderText: {
         fontSize: 33,
         fontWeight: "700",
-        color: "green",
+        color: "darkblue",
         textAlign: "center",
 
     },

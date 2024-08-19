@@ -28,13 +28,13 @@ export const ScheduleCompStyleSheet = StyleSheet.create({
     },
     scheduleDateText: {
         fontSize: 18,
-        color: "green",
+        color: "darkblue",
         fontWeight: "600",
     },
     scheduleHeaderText: {
         fontSize: 33,
         fontWeight: "700",
-        color: "green",
+        color: "darkblue",
         textAlign: "left",
     },
     signupLowerContainer: {

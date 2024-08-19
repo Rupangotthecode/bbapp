@@ -16,12 +16,12 @@ const TimeOutModal = (props) => {
 
   return (
     <Modal visible={props.showTimeOutModal} onDismiss={() => props.setShowTimeOutModal(false)} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
-      <Text style={{ fontSize: 24, fontWeight: "600", color: "green", textAlign: "center", marginBottom: 10 }}>Take Timeout?</Text>
+      <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 10 }}>Take Timeout?</Text>
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-        <Button mode="contained" textColor='white' buttonColor='green' onPress={handleTimeout} >
+        <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleTimeout} >
           Yes
         </Button>
-        <Button mode="outlined" textColor='green' onPress={() => props.setShowTimeOutModal(false)} >
+        <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowTimeOutModal(false)} >
           Cancel
         </Button>
       </View>

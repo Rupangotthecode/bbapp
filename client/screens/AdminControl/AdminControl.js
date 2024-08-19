@@ -14,6 +14,7 @@ import SetPrepModal from '../../components/Scoreboard/SetPrepModal'
 import PlayersModal from '../../components/Scoreboard/PlayersModal'
 import SubstitutionModal from '../../components/Scoreboard/SubstitutionModal'
 import TimeOutModal from '../../components/Scoreboard/TimeOutModal'
+import AddPointModal from '../../components/Scoreboard/AddPointModal'
 
 const AdminControl = ({ navigation }) => {
 
@@ -24,6 +25,8 @@ const AdminControl = ({ navigation }) => {
     const [showPrep, setShowPrep] = useState(false);
     const [showServerModalTeam1, setShowServerModalTeam1] = useState(false)
     const [showServerModalTeam2, setShowServerModalTeam2] = useState(false)
+    const [showAddPointModalTeam1, setShowAddPointModalTeam1] = useState(false)
+    const [showAddPointModalTeam2, setShowAddPointModalTeam2] = useState(false)
     const [showPlayersModalTeam1, setShowPlayersModalTeam1] = useState(false)
     const [showPlayersModalTeam2, setShowPlayersModalTeam2] = useState(false)
     const [showSubModelTeam1, setShowSubModelTeam1] = useState(false)
@@ -35,9 +38,8 @@ const AdminControl = ({ navigation }) => {
     const gameDetails = useSelector((state) => state.scoreboardReducer)?.data?.result
     const setNumber = gameDetails?.setNumber - 1
     console.log(setNumber)
-
-    const initialSelection = !(gameDetails.lastTeam1Server || gameDetails.lastTeam2Server)
-
+    console.log("ko", gameDetails.lastTeam1Server)
+    const initialSelection = !(gameDetails.lastTeam2Server || gameDetails.lastTeam2Server)
     useEffect(() => {
         console.log("use", gameDetails.tossWinner.winner, showToss);
 
@@ -76,16 +78,16 @@ const AdminControl = ({ navigation }) => {
             </View>
             <View style={ACStyleSheet.AClowerContainer}>
                 <View style={{ height: "40%", padding: "2%" }}>
-                    <AdminController teamName={gameDetails.team1Name} players={gameDetails.team1Players} server={gameDetails.lastTeam1Server} mainPlayers={gameDetails.sets[setNumber]?.team2Main} showServerModal={showServerModalTeam1} setShowServerModal={setShowServerModalTeam1} setServers={setServers} showPlayers={showPlayersModalTeam1} setShowPlayers={setShowPlayersModalTeam1} showSub={showSubModelTeam1} setShowSub={setShowSubModelTeam1} showTimeOutModal={showTimeOutModalTeam1} setShowTimeOutModal={setShowTimeOutModalTeam1} />
+                    <AdminController teamName={gameDetails.team1Name} players={gameDetails.team1Players} server={gameDetails.lastTeam1Server} mainPlayers={gameDetails.sets[setNumber]?.team1Main} showServerModal={showServerModalTeam1} setShowServerModal={setShowServerModalTeam1} setServers={setServers} showPlayers={showPlayersModalTeam1} setShowPlayers={setShowPlayersModalTeam1} showSub={showSubModelTeam1} setShowSub={setShowSubModelTeam1} showTimeOutModal={showTimeOutModalTeam1} setShowTimeOutModal={setShowTimeOutModalTeam1} setShowAddPointModal={setShowAddPointModalTeam1} />
                 </View>
                 <View style={{ height: "40%", padding: "2%" }}>
-                    <AdminController teamName={gameDetails.team2Name} players={gameDetails.team2Players} mainPlayers={gameDetails.sets[setNumber]?.team2Main} server={gameDetails.lastTeam2Server} showServerModal={showServerModalTeam2} setShowServerModal={setShowServerModalTeam2} setServers={setServers} showPlayers={showPlayersModalTeam2} setShowPlayers={setShowPlayersModalTeam2} showSub={showSubModelTeam2} setShowSub={setShowSubModelTeam2} showTimeOutModal={showTimeOutModalTeam2} setShowTimeOutModal={setShowTimeOutModalTeam2} />
+                    <AdminController teamName={gameDetails.team2Name} players={gameDetails.team2Players} mainPlayers={gameDetails.sets[setNumber]?.team2Main} server={gameDetails.lastTeam2Server} showServerModal={showServerModalTeam2} setShowServerModal={setShowServerModalTeam2} setServers={setServers} showPlayers={showPlayersModalTeam2} setShowPlayers={setShowPlayersModalTeam2} showSub={showSubModelTeam2} setShowSub={setShowSubModelTeam2} showTimeOutModal={showTimeOutModalTeam2} setShowTimeOutModal={setShowTimeOutModalTeam2} setShowAddPointModal={setShowAddPointModalTeam1} />
                 </View>
                 <View style={{ flexDirection: "column", justifyContent: "flex-start", gap: 10 }}>
-                    <Button mode="contained" textColor='white' buttonColor='green' onPress={handleEndSet}>
+                    <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleEndSet}>
                         End Set
                     </Button>
-                    <Button mode="contained" textColor='white' buttonColor='green' disabled>
+                    <Button mode="contained" textColor='white' buttonColor='darkblue' disabled>
                         End Match
                     </Button>
                 </View>
@@ -94,6 +96,10 @@ const AdminControl = ({ navigation }) => {
                     <PaperProvider>
                         <Portal>
                             <InfoModal gameDetails={gameDetails} showInfo={showInfo} hideInfoModal={hideInfoModal} />
+                        </Portal>
+                        <Portal>
+                            <AddPointModal gameId={gameDetails._id} teamName={gameDetails.team1Name} showAddPointModal={showAddPointModalTeam1} servers={initialSelection ? gameDetails.sets[setNumber]?.team1Main : servers} setShowAddPointModal={setShowAddPointModalTeam1} initialSelection={initialSelection} />
+                            <AddPointModal gameId={gameDetails._id} teamName={gameDetails.team2Name} showAddPointModal={showAddPointModalTeam2} servers={initialSelection ? gameDetails.sets[setNumber]?.team1Main : servers} setShowAddPointModal={setShowAddPointModalTeam2} initialSelection={initialSelection} />
                         </Portal>
                         <Portal>
                             <ServerModal gameId={gameDetails._id} teamName={gameDetails.team1Name} showServerModal={showServerModalTeam1} servers={initialSelection ? gameDetails.sets[setNumber]?.team1Main : servers} setShowServerModal={setShowServerModalTeam1} initialSelection={initialSelection} />

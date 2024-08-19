@@ -34,8 +34,8 @@ const Signup = (props) => {
             <View style={authCompStyleSheet.signupLowerContainer}>
                 <TextInput
                     label="Enter Username"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={username}
                     placeholder='Type account username.'
@@ -43,8 +43,8 @@ const Signup = (props) => {
                 />
                 <TextInput
                     label="Enter Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={name}
                     placeholder='Type your name.'
@@ -52,8 +52,8 @@ const Signup = (props) => {
                 />
                 <TextInput
                     label="Enter Password"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={password}
                     placeholder='Type a suitable password.'
@@ -63,8 +63,8 @@ const Signup = (props) => {
                 <TextInput
                     label="Re-enter Password"
                     mode='outlined'
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     value={repassword}
                     placeholder='Retype the same password.'
                     onChangeText={text => setRepassword(text)}
@@ -72,20 +72,20 @@ const Signup = (props) => {
                 />
                 <TextInput
                     label="Enter Admin Code"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={adminCode}
                     placeholder='Type the admin code.'
                     onChangeText={text => setAdminCode(text)}
                     secureTextEntry
                 />
-                <Button buttonColor="green" mode="contained" onPress={() => handleSignup()}>
+                <Button buttonColor="darkblue" mode="contained" onPress={() => handleSignup()}>
                     Sign Up
                 </Button>
                 <View style={authCompStyleSheet.signupSwitcherContainer}>
                     <Text>Already an Admin?</Text>
-                    <Button mode="text" textColor='green' onPress={() => props.setIsSignup(false)} compact={true}>
+                    <Button mode="text" textColor='darkblue' onPress={() => props.setIsSignup(false)} compact={true}>
                         Log In
                     </Button>
                 </View>

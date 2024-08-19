@@ -29,10 +29,10 @@ const Home = ({ navigation }) => {
                     <View style={HomeStyles.homeGreetingRightContainer}>
                         {User ? (<View style={HomeStyles.homeGreetingLogoutContainer}>
                             <Text style={HomeStyles.homeGreetingText}>Hi, {User.name}</Text>
-                            <Button buttonColor="green" mode="contained" onPress={() => handleLogout()}>
+                            <Button buttonColor="darkblue" mode="contained" onPress={() => handleLogout()}>
                                 Logout
                             </Button>
-                        </View>) : (<Button buttonColor="green" mode="contained" onPress={() => navigation.navigate("Auth")}>
+                        </View>) : (<Button buttonColor="darkblue" mode="contained" onPress={() => navigation.navigate("Auth")}>
                             Admin Sign In
                         </Button>)}
                     </View>
@@ -44,10 +44,10 @@ const Home = ({ navigation }) => {
                             <Text style={HomeStyles.homeAdminControlsText}>Admin Controls</Text>
                         </View>
                         <View style={HomeStyles.homeAdminButtonsContainer}>
-                            <Button icon="plus" buttonColor="green" compact={true} mode="contained" onPress={() => navigation.navigate("NewGame")}>
+                            <Button icon="plus" buttonColor="darkblue" compact={true} mode="contained" onPress={() => navigation.navigate("AdminControl")}>
                                 New Game
                             </Button>
-                            <Button icon="calendar-blank" compact={true} buttonColor="green" mode="contained" onPress={() => navigation.navigate("AddSchedule")} >
+                            <Button icon="calendar-blank" compact={true} buttonColor="darkblue" mode="contained" onPress={() => navigation.navigate("AddSchedule")} >
                                 Schedule
                             </Button>
                         </View>

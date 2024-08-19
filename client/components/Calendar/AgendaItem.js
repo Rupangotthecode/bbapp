@@ -30,7 +30,7 @@ const AgendaItem = ({ item }) => {
             <View style={styles.AIrightContainer}>
                 <View style={styles.AItextContainer}>
                     <Text style={styles.itemTitleText}>{item.title}</Text>
-                    <Text style={{ color: "green", fontWeight: "400" }}>{item?.tournament}</Text>
+                    <Text style={{ color: "darkblue", fontWeight: "400" }}>{item?.tournament}</Text>
                     <View style={styles.AItagContainer}>
                         <View style={styles.AItag}>
                             <Text style={styles.AItagText}>Pool: {item?.poolNo}</Text>
@@ -41,7 +41,7 @@ const AgendaItem = ({ item }) => {
                     </View>
                 </View>
                 <View style={styles.itemButtonContainer}>
-                    <Button onPress={buttonPressed} mode="text" icon="information-outline" textColor="green" labelStyle={{ fontSize: 35, fontWeight: 700, padding: 0 }} compact={true}>
+                    <Button onPress={buttonPressed} mode="text" icon="information-outline" textColor="darkblue" labelStyle={{ fontSize: 35, fontWeight: 700, padding: 0 }} compact={true}>
 
                     </Button>
                 </View>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     itemHourText: {
-        color: 'green',
+        color: 'darkblue',
         fontSize: 24,
     },
     itemDurationText: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         marginLeft: 4
     },
     itemTitleText: {
-        color: 'green',
+        color: 'darkblue',
         fontWeight: '500',
         fontSize: 20,
     },
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     AItag: {
-        backgroundColor: "green",
+        backgroundColor: "darkblue",
         padding: "2%",
         paddingLeft: "5%",
         paddingRight: "5%",

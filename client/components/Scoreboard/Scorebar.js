@@ -34,7 +34,7 @@ const Scorebar = (props) => {
                 </View>
             </View>
             <View style={SBCstyleSheet.SBrightContainer}>
-                <Button mode='text' icon="information-outline" textColor='green' labelStyle={{ fontSize: 50, fontWeight: 700, padding: 0 }} style={{ justifyContent: "center", alignItems: "center" }} compact={true} onPress={props.showModal}></Button>
+                <Button mode='text' icon="information-outline" textColor='darkblue' labelStyle={{ fontSize: 50, fontWeight: 700, padding: 0 }} style={{ justifyContent: "center", alignItems: "center" }} compact={true} onPress={props.showModal}></Button>
             </View>
         </View>
     )

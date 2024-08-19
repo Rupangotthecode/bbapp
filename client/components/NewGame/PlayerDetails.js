@@ -44,8 +44,8 @@ const PlayerDetails = (props) => {
         <View style={NGCompStyleSheet.PDmainContainer}>
             <TextInput
                 label="Player Name"
-                outlineColor='green'
-                activeOutlineColor='green'
+                outlineColor='darkblue'
+                activeOutlineColor='darkblue'
                 mode='outlined'
                 value={playerName}
                 placeholder='Enter Player Name'
@@ -53,8 +53,8 @@ const PlayerDetails = (props) => {
             />
             <TextInput
                 label="Player Number"
-                outlineColor='green'
-                activeOutlineColor='green'
+                outlineColor='darkblue'
+                activeOutlineColor='darkblue'
                 mode='outlined'
                 value={playerNo}
                 placeholder='Enter Player Number'
@@ -63,7 +63,7 @@ const PlayerDetails = (props) => {
             <View style={NGCompStyleSheet.PDDateContainer}>
                 <View style={NGCompStyleSheet.PDDateUpperContainer}>
                     <Text style={NGCompStyleSheet.PDDateText}>Enter Date Of Birth: </Text>
-                    <Button mode="contained" textColor='white' buttonColor='green' onPress={() => setOpenDate(true)}>
+                    <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => setOpenDate(true)}>
                         Enter DoB
                     </Button>
                     {openDate && <DateTimePicker
@@ -74,7 +74,7 @@ const PlayerDetails = (props) => {
                 </View>
                 <Text style={NGCompStyleSheet.PDDateText}>Selected date: {formatDate(dob)}</Text>
             </View>
-            <Button mode="contained" textColor='white' buttonColor='green' onPress={saveChanges}>Add And Save</Button>
+            <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={saveChanges}>Add And Save</Button>
         </View>
     )
 }

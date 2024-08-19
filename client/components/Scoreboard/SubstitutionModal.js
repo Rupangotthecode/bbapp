@@ -28,36 +28,36 @@ const SubstitutionModal = (props) => {
 
     return (
         <Modal visible={props.showSub} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
-            <Text style={{ fontSize: 24, fontWeight: "600", color: "green", textAlign: "center", marginBottom: 5 }}>Substitutions</Text>
-            <Text style={{ fontSize: 20, fontWeight: "400", color: "green", textAlign: "left", marginBottom: 10 }}>Select team OUT player</Text>
+            <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 5 }}>Substitutions</Text>
+            <Text style={{ fontSize: 20, fontWeight: "400", color: "darkblue", textAlign: "left", marginBottom: 10 }}>Select team OUT player</Text>
             {props.mainPlayers?.map((player, index) => (
                 <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
                         value={player.playerNo}
                         status={playerOut.playerNo === player.playerNo ? 'checked' : 'unchecked'}
-                        color='green'
+                        color='darkblue'
                         onPress={() => setPlayerOut(player)}
                     />
-                    <Text style={{ fontSize: 14, fontWeight: "400", color: "green", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: "400", color: "darkblue", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
                 </View>
             ))}
-            <Text style={{ fontSize: 20, fontWeight: "400", color: "green", textAlign: "left", marginBottom: 10 }}>Select team IN player</Text>
+            <Text style={{ fontSize: 20, fontWeight: "400", color: "darkblue", textAlign: "left", marginBottom: 10 }}>Select team IN player</Text>
             {substitutePlayers?.map((player, index) => (
                 <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
                         value={player.playerNo}
                         status={playerIn.playerNo === player.playerNo ? 'checked' : 'unchecked'}
-                        color='green'
+                        color='darkblue'
                         onPress={() => setPlayerIn(player)}
                     />
-                    <Text style={{ fontSize: 14, fontWeight: "400", color: "green", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: "400", color: "darkblue", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
                 </View>
             ))}
             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                <Button mode="contained" textColor='white' buttonColor='green' onPress={handleSubstitution} >
+                <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleSubstitution} >
                     Substitute Players
                 </Button>
-                <Button mode="outlined" textColor='green' onPress={() => props.setShowSub(false)} >
+                <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowSub(false)} >
                     Cancel
                 </Button>
             </View>

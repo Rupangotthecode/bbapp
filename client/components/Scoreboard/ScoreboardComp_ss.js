@@ -54,7 +54,7 @@ export const SBCstyleSheet = StyleSheet.create({
     SBsetScoretext: {
         fontSize: 24,
         fontWeight: "700",
-        color: "green"
+        color: "darkblue"
     },
     SBlogo: {
         height: "100%",
@@ -86,7 +86,7 @@ export const SBCstyleSheet = StyleSheet.create({
     ADCtitle: {
         fontSize: 22,
         fontWeight: "700",
-        color: "green"
+        color: "darkblue"
     },
     ADClowerContainer: {
         width: "100%",
@@ -95,6 +95,11 @@ export const SBCstyleSheet = StyleSheet.create({
     },
     ADCleftContainer: {
         width: "35%",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "2%",
+        borderRightWidth: 1,
+        borderRightColor: "darkblue"
     },
     ADCrightContainer: {
         width: "65%",

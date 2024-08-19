@@ -55,8 +55,8 @@ const AddSchedule = (props) => {
             <View style={ScheduleCompStyleSheet.scheduleLowerContainer}>
                 <TextInput
                     label="Title"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={title}
                     placeholder='Enter Event Title, (ex: "Team A vs Team B")'
@@ -64,8 +64,8 @@ const AddSchedule = (props) => {
                 />
                 <TextInput
                     label="Tournament/Competition Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={tournament}
                     placeholder='Enter Tournament Name, (ex: "SRM BB championship 2024")'
@@ -75,7 +75,7 @@ const AddSchedule = (props) => {
 
                     <View style={ScheduleCompStyleSheet.scheduleDateUpperContainer}>
                         <Text style={ScheduleCompStyleSheet.scheduleDateText}>Enter Event Date: </Text>
-                        <Button mode="contained" textColor='white' buttonColor='green' onPress={() => setOpenDate(true)}>
+                        <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => setOpenDate(true)}>
                             Enter Event Date
                         </Button>
                         {openDate && <DateTimePicker
@@ -88,8 +88,8 @@ const AddSchedule = (props) => {
                 </View>
                 <TextInput
                     label="Time of Event"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={time}
                     placeholder='Enter time of Event(ex: 2pm)'
@@ -97,8 +97,8 @@ const AddSchedule = (props) => {
                 />
                 <TextInput
                     label="Duration(optional)"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={duration}
                     placeholder='Enter time required for event completion, (ex: "2h or 30m")'
@@ -106,8 +106,8 @@ const AddSchedule = (props) => {
                 />
                 <TextInput
                     label="Pool Number(optional)"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={poolNo}
                     placeholder='Enter pool number of the match'
@@ -115,14 +115,14 @@ const AddSchedule = (props) => {
                 />
                 <TextInput
                     label="Match Number(optional)"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={matchNo}
                     placeholder='Enter match number of the match'
                     onChangeText={text => setmatchNo(text)}
                 />
-                <Button mode="contained" textColor='white' buttonColor='green'
+                <Button mode="contained" textColor='white' buttonColor='darkblue'
                     onPress={onSubmit}>
                     Add to Schedule
                 </Button>

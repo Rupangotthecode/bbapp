@@ -7,6 +7,10 @@ import { Button } from 'react-native-paper'
 
 const AdminController = (props) => {
 
+    const handleAddPoint = () => {
+        props.setShowAddPointModal(true)
+    }
+
     const handleOpenServerModal = () => {
         console.log("handler", props.server)
         props.setServers(props.mainPlayers.filter((val) => !(val.playerName === props.server)))
@@ -33,27 +37,30 @@ const AdminController = (props) => {
             </View>
             <View style={SBCstyleSheet.ADClowerContainer}>
                 <View style={SBCstyleSheet.ADCleftContainer}>
-                    <Button mode="elevated" buttonColor="green" textColor="white" height="100%" labelStyle={{ fontSize: 20, fontWeight: 700, padding: 0 }} style={{ justifyContent: "center", alignItems: "center" }} compact={true} onPress={handleOpenServerModal}>
-                        +1 pt
+                    <Button icon={"plus"} mode="elevated" buttonColor="darkblue" textColor="white" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact={true} onPress={handleAddPoint}>
+                    </Button>
+                    <Button icon={"swap-vertical"} mode="elevated" buttonColor="darkblue" textColor="white" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact={true} onPress={handleOpenServerModal}>
+
                     </Button>
                 </View>
                 <View style={SBCstyleSheet.ADCrightContainer}>
                     <View style={SBCstyleSheet.ADCsmallButtonContainer}>
-                        <Button icon={"human-queue"} mode="elevated" buttonColor="green" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleShowPlayers}>
+                        <Button icon={"human-queue"} mode="elevated" buttonColor="darkblue" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleShowPlayers}>
 
                         </Button>
-                        <Button icon={"human-capacity-increase"} mode="elevated" buttonColor="green" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleSub}>
+                        <Button icon={"human-capacity-increase"} mode="elevated" buttonColor="darkblue" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleSub}>
 
                         </Button>
 
                     </View>
                     <View style={SBCstyleSheet.ADCsmallButtonContainer}>
-                        <Button icon={"clock-time-two-outline"} mode="elevated" buttonColor="green" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleTimeout}>
+                        <Button icon={"clock-time-two-outline"} mode="elevated" buttonColor="darkblue" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact onPress={handleTimeout}>
 
                         </Button>
-                        <Button icon={"exclamation-thick"} mode="elevated" buttonColor="green" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact disabled>
+                        <Button icon={"exclamation-thick"} mode="elevated" buttonColor="darkblue" textColor="white" height="100%" labelStyle={{ fontSize: 45, padding: 0 }} style={{ justifyContent: "center", alignItems: "space-around", width: 80 }} compact disabled>
 
                         </Button>
+
 
                     </View>
                 </View>

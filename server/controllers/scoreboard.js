@@ -194,8 +194,8 @@ export const startSet = async (req, res) => {
 
 export const increaseTeamScore = async (req, res) => {
     try {
-        const { gameId, team, server, initialSelection } = req.body;
-        console.log(gameId, team, server, initialSelection);
+        const { gameId, team } = req.body;
+        console.log(gameId, team);
 
         const scoreboard = await scoreboards.findById(gameId);
         if (!scoreboard) {
@@ -207,19 +207,47 @@ export const increaseTeamScore = async (req, res) => {
         const currentSet = scoreboard.sets[setNumber - 1];
 
         if (team === scoreboard.team1Name) {
-            if (!initialSelection) {
-                currentSet.team1Score += 1;
-            }
-            scoreboard.lastTeam1Server = server;
+            currentSet.team1Score += 1;
+
         } else if (team === scoreboard.team2Name) {
-            if (!initialSelection) {
-                currentSet.team2Score += 1;
-            }
-            scoreboard.lastTeam2Server = server;
+            currentSet.team2Score += 1;
+
         } else {
             return res.status(400).json({ message: "Invalid team specified" });
         }
         console.log(scoreboard.lastTeam1Server)
+        await scoreboard.save();
+
+        const modifiedScoreboard = convertMongoToObj(scoreboard);
+
+        res.status(200).json({ result: modifiedScoreboard });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+export const changeServer = async (req, res) => {
+    try {
+        const { gameId, team, server } = req.body;
+        console.log(gameId, team, server);
+
+        const scoreboard = await scoreboards.findById(gameId);
+        if (!scoreboard) {
+            return res.status(404).json({ message: "Game not found" });
+        }
+
+        const setNumber = scoreboard.setNumber;
+
+        const currentSet = scoreboard.sets[setNumber - 1];
+
+        if (team === scoreboard.team1Name) {
+            currentSet.lastTeam1Server = server
+        } else if (team === scoreboard.team2Name) {
+            currentSet.lastTeam2Server = server
+        } else {
+            return res.status(400).json({ message: "Invalid team specified" });
+        }
         await scoreboard.save();
 
         const modifiedScoreboard = convertMongoToObj(scoreboard);

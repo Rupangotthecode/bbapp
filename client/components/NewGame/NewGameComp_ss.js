@@ -18,7 +18,7 @@ export const NGCompStyleSheet = StyleSheet.create({
     },
     PDDateText: {
         fontSize: 18,
-        color: "green",
+        color: "darkblue",
         fontWeight: "500",
     },
     NGFMainContainer: {
@@ -32,7 +32,7 @@ export const NGCompStyleSheet = StyleSheet.create({
     NGFHeaderText: {
         fontSize: 30,
         textAlign: "center",
-        color: "green",
+        color: "darkblue",
         fontWeight: "600"
     },
     NGFLowerContainer: {
@@ -59,6 +59,6 @@ export const NGCompStyleSheet = StyleSheet.create({
         borderWidth: 2,
         borderStyle: "dotted",
         borderRadius: 20,
-        borderColor: "green"
+        borderColor: "darkblue"
     }
 })

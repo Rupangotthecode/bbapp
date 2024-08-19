@@ -120,8 +120,8 @@ const NewGameForm = (props) => {
             <View style={NGCompStyleSheet.NGFLowerContainer}>
                 <TextInput
                     label="Tournament"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={tournament}
                     placeholder='Enter Tournament Name, (ex: "SRM BB championship 2024")'
@@ -129,8 +129,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Organizer"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={organizer}
                     placeholder='Enter Organizer Name'
@@ -138,8 +138,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Venue"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={venue}
                     placeholder='Enter venue of Event'
@@ -147,8 +147,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 1 Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team1}
                     placeholder='Enter Name For The First Team'
@@ -156,19 +156,19 @@ const NewGameForm = (props) => {
                 />
                 <View style={NGCompStyleSheet.NGFImageContainer}>
                     <View style={NGCompStyleSheet.NGFImageUpperContainer}>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 20 }}>Add Team 1 Logo:</Text>
-                        <Button mode="contained" textColor='white' buttonColor='green' onPress={() => handleImagePick(setTeam1Logo, setTeam1LogoPreview)}>Browse</Button>
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 20 }}>Add Team 1 Logo:</Text>
+                        <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => handleImagePick(setTeam1Logo, setTeam1LogoPreview)}>Browse</Button>
                     </View>
                     <View style={NGCompStyleSheet.NGFImageLowerContainer}>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 20 }}>Your Selection:</Text>
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 20 }}>Your Selection:</Text>
                         {team1LogoPreview && <Image source={{ uri: team1LogoPreview }} style={{ width: 100, height: 100 }} />}
                     </View>
                 </View>
 
                 <TextInput
                     label="Team 1 Manager Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team1Manager}
                     placeholder="Enter Name For The First Team's Manager"
@@ -176,8 +176,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 1 Coach Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team1Coach}
                     placeholder="Enter Name For The First Team's Coach"
@@ -185,8 +185,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 1 Asst. Coach Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team1ACoach}
                     placeholder="Enter Name For The First Team's Asst. Coach"
@@ -194,8 +194,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 2 Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team2}
                     placeholder='Enter Name For The Second Team'
@@ -203,18 +203,18 @@ const NewGameForm = (props) => {
                 />
                 <View style={NGCompStyleSheet.NGFImageContainer}>
                     <View style={NGCompStyleSheet.NGFImageUpperContainer}>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 20 }}>Add Team 2 Logo:</Text>
-                        <Button mode="contained" textColor='white' buttonColor='green' onPress={() => handleImagePick(setTeam2Logo, setTeam2LogoPreview)}>Browse</Button>
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 20 }}>Add Team 2 Logo:</Text>
+                        <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => handleImagePick(setTeam2Logo, setTeam2LogoPreview)}>Browse</Button>
                     </View>
                     <View style={NGCompStyleSheet.NGFImageLowerContainer}>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 20 }}>Your Selection:</Text>
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 20 }}>Your Selection:</Text>
                         {team2LogoPreview && <Image source={{ uri: team2LogoPreview }} style={{ width: 100, height: 100 }} />}
                     </View>
                 </View>
                 <TextInput
                     label="Team 2 Manager Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team2Manager}
                     placeholder="Enter Name For The Second Team's Manager"
@@ -222,8 +222,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 2 Coach Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team2Coach}
                     placeholder="Enter Name For The Second Team's Coach"
@@ -231,8 +231,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Team 2 Asst. Coach Name"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={team2ACoach}
                     placeholder="Enter Name For The Second Team's Asst. Coach"
@@ -240,8 +240,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Pool Number"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={poolNo}
                     placeholder='Enter pool number of the match'
@@ -249,8 +249,8 @@ const NewGameForm = (props) => {
                 />
                 <TextInput
                     label="Match Number"
-                    outlineColor='green'
-                    activeOutlineColor='green'
+                    outlineColor='darkblue'
+                    activeOutlineColor='darkblue'
                     mode='outlined'
                     value={matchNo}
                     placeholder='Enter match number of the match'
@@ -273,72 +273,72 @@ const NewGameForm = (props) => {
                 />
                 {gameType === "fives" ? (
                     <View>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 26 }}>Team 1</Text>
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 26 }}>Team 1</Text>
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={1} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={2} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={3} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={4} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={5} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={6} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={7} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={8} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={9} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={10} playersList={team1List} setPlayersList={setTeam1List} />
 
 
 
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 26, marginTop: 25 }}>Team 2</Text>
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 26, marginTop: 25 }}>Team 2</Text>
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={1} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={2} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={3} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={4} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={5} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={6} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={7} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={8} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={9} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={10} playersList={team2List} setPlayersList={setTeam2List} />
                     </View>
                 ) : (
                     <View>
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 26 }}>Team 1</Text>
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 26 }}>Team 1</Text>
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={1} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={2} playersList={team1List} setPlayersList={setTeam1List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={3} playersList={team1List} setPlayersList={setTeam1List} />
 
-                        <Text style={{ fontWeight: "500", color: "green", fontSize: 26, marginTop: 25 }}>Team 2</Text>
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Text style={{ fontWeight: "500", color: "darkblue", fontSize: 26, marginTop: 25 }}>Team 2</Text>
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={1} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={2} playersList={team2List} setPlayersList={setTeam2List} />
-                        <Divider bold style={{ backgroundColor: "green", height: 1 }} />
+                        <Divider bold style={{ backgroundColor: "darkblue", height: 1 }} />
                         <PlayerDetails id={3} playersList={team2List} setPlayersList={setTeam2List} />
                     </View>
                 )}
-                <Button mode="contained" textColor='white' buttonColor='green'
+                <Button mode="contained" textColor='white' buttonColor='darkblue'
                     onPress={() => handleStartGame()}>
                     Start Game
                 </Button>

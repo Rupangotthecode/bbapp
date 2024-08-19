@@ -34,10 +34,19 @@ export const startSet = (team1Main, team2Main, team1Server, team2Server, gameId)
     }
 }
 
-export const addPoint = (gameId, teamName, server, initialSelection) => async (dispatch) => {
+export const addPoint = (gameId, team) => async (dispatch) => {
     try {
-        console.log(gameId, teamName, server, initialSelection)
-        const { data } = await api.addPoint(gameId, teamName, server, initialSelection)
+        const { data } = await api.addPoint(gameId, team)
+        dispatch({ type: 'UPDATE_GAME', payload: data })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const changeServer = (gameId, teamName, server) => async (dispatch) => {
+    try {
+        console.log(gameId, teamName, server)
+        const { data } = await api.changeServer(gameId, teamName, server)
         dispatch({ type: 'UPDATE_GAME', payload: data })
     } catch (error) {
         console.log(error)
@@ -62,6 +71,8 @@ export const manageTimeout = (gameId, team) => async (dispatch) => {
         console.log(error)
     }
 }
+
+
 
 export const endSet = (gameId) => async (dispatch) => {
     try {

@@ -7,7 +7,7 @@ const InfoModal = (props) => {
     const gameDetails = props.gameDetails
     return (
         <Modal visible={props.showInfo} onDismiss={props.hideInfoModal} contentContainerStyle={ACStyleSheet.ACmodalContainer}>
-            <Text style={{ fontSize: 24, fontWeight: "600", color: "green", textAlign: "center", marginBottom: 10 }}>Match Details</Text>
+            <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 10 }}>Match Details</Text>
             <Text style={ACStyleSheet.ACmodalBodyText}>Tournament: {gameDetails?.tournament}</Text>
             <Text style={ACStyleSheet.ACmodalBodyText}>Venue: {gameDetails?.venue}</Text>
             <Text style={ACStyleSheet.ACmodalBodyText}>Organizer: {gameDetails?.organizer}</Text>

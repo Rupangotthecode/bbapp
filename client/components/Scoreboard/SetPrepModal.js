@@ -36,32 +36,32 @@ const SetPrepModal = (props) => {
 
   return (
     <Modal visible={props.showPrep} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
-      <Text style={{ fontSize: 24, fontWeight: "600", color: "green", textAlign: "center", marginBottom: 5 }}>Set {props.setNumber + 1}</Text>
-      <Text style={{ fontSize: 20, fontWeight: "400", color: "green", textAlign: "left", marginBottom: 10 }}>Select team 1 starting players</Text>
+      <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 5 }}>Set {props.setNumber + 1}</Text>
+      <Text style={{ fontSize: 20, fontWeight: "400", color: "darkblue", textAlign: "left", marginBottom: 10 }}>Select team 1 starting players</Text>
       {gameDetails.team1Players.map((player, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <RadioButton
             value={player.playerNo}
             status={selectedTeam1Players.includes(player) ? 'checked' : 'unchecked'}
-            color='green'
+            color='darkblue'
             onPress={() => handlePressTeam(selectedTeam1Players, setSelectedTeam1Players, player)}
           />
-          <Text style={{ fontSize: 14, fontWeight: "400", color: "green", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
+          <Text style={{ fontSize: 14, fontWeight: "400", color: "darkblue", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
         </View>
       ))}
-      <Text style={{ fontSize: 20, fontWeight: "400", color: "green", textAlign: "left", marginBottom: 10 }}>Select team 2 starting players</Text>
+      <Text style={{ fontSize: 20, fontWeight: "400", color: "darkblue", textAlign: "left", marginBottom: 10 }}>Select team 2 starting players</Text>
       {gameDetails.team2Players.map((player, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
           <RadioButton
             value={player.playerNo}
             status={selectedTeam2Players.includes(player) ? 'checked' : 'unchecked'}
-            color='green'
+            color='darkblue'
             onPress={() => handlePressTeam(selectedTeam2Players, setSelectedTeam2Players, player)}
           />
-          <Text style={{ fontSize: 14, fontWeight: "400", color: "green", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
+          <Text style={{ fontSize: 14, fontWeight: "400", color: "darkblue", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
         </View>
       ))}
-      <Button mode="contained" textColor='white' buttonColor='green' onPress={() => handleBegin(gameDetails.gameType)} >
+      <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => handleBegin(gameDetails.gameType)} >
         Begin Match
       </Button>
     </Modal>
