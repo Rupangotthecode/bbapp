@@ -242,15 +242,17 @@ export const changeServer = async (req, res) => {
         const currentSet = scoreboard.sets[setNumber - 1];
 
         if (team === scoreboard.team1Name) {
-            currentSet.lastTeam1Server = server
+            scoreboard.lastTeam1Server = server
         } else if (team === scoreboard.team2Name) {
-            currentSet.lastTeam2Server = server
+            scoreboard.lastTeam2Server = server
         } else {
             return res.status(400).json({ message: "Invalid team specified" });
         }
         await scoreboard.save();
 
         const modifiedScoreboard = convertMongoToObj(scoreboard);
+
+        console.log(modifiedScoreboard.las)
 
         res.status(200).json({ result: modifiedScoreboard });
     } catch (error) {

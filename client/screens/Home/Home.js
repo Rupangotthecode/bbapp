@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
                             <Text style={HomeStyles.homeAdminControlsText}>Admin Controls</Text>
                         </View>
                         <View style={HomeStyles.homeAdminButtonsContainer}>
-                            <Button icon="plus" buttonColor="darkblue" compact={true} mode="contained" onPress={() => navigation.navigate("AdminControl")}>
+                            <Button icon="plus" buttonColor="darkblue" compact={true} mode="contained" onPress={() => navigation.navigate("NewGame")}>
                                 New Game
                             </Button>
                             <Button icon="calendar-blank" compact={true} buttonColor="darkblue" mode="contained" onPress={() => navigation.navigate("AddSchedule")} >

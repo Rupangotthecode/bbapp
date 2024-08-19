@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Platform } from "react-native";
 
 // const API = axios.create({
 //     baseURL: "https://bbapp-52xe.onrender.com",

@@ -38,7 +38,7 @@ const AdminControl = ({ navigation }) => {
     const gameDetails = useSelector((state) => state.scoreboardReducer)?.data?.result
     const setNumber = gameDetails?.setNumber - 1
     console.log(setNumber)
-    console.log("ko", gameDetails.lastTeam1Server)
+    console.log("ko", gameDetails.lastTeam2Server)
     const initialSelection = !(gameDetails.lastTeam2Server || gameDetails.lastTeam2Server)
     useEffect(() => {
         console.log("use", gameDetails.tossWinner.winner, showToss);
