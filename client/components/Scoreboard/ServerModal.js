@@ -41,7 +41,7 @@ const ServerModal = (props) => {
             ))}
             <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
                 <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleChangeServer} >
-                    {props.initialSelection ? "Start Set" : "Add Point"}
+                    {props.initialSelection ? "Start Set" : "Change Server"}
                 </Button>
                 {!props.initialSelection && <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowServerModal(false)} >
                     Cancel

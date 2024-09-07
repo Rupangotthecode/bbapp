@@ -26,6 +26,8 @@ const SetPrepModal = (props) => {
     console.log(selectedTeam1Players.length, selectedTeam2Players.length)
     if ((gameType === "doubles" && selectedTeam1Players.length === 2) || (gameType === "fives" && selectedTeam2Players.length === 5)) {
       dispatch(startSet(selectedTeam1Players, selectedTeam2Players, null, null, gameDetails._id))
+      setSelectedTeam1Players([])
+      setSelectedTeam2Players([])
       props.setShowPrep(false)
     }
     else {
@@ -36,7 +38,7 @@ const SetPrepModal = (props) => {
 
   return (
     <Modal visible={props.showPrep} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
-      <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 5 }}>Set {props.setNumber + 1}</Text>
+      <Text style={{ fontSize: 24, fontWeight: "600", color: "darkblue", textAlign: "center", marginBottom: 5 }}>New Set</Text>
       <Text style={{ fontSize: 20, fontWeight: "400", color: "darkblue", textAlign: "left", marginBottom: 10 }}>Select team 1 starting players</Text>
       {gameDetails.team1Players.map((player, index) => (
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -61,9 +63,15 @@ const SetPrepModal = (props) => {
           <Text style={{ fontSize: 14, fontWeight: "400", color: "darkblue", textAlign: "left" }}>{player.playerName} - {player.playerNo}</Text>
         </View>
       ))}
-      <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => handleBegin(gameDetails.gameType)} >
-        Begin Match
-      </Button>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+        <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={() => handleBegin(gameDetails.gameType)} >
+          Start Set
+        </Button>
+        <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowPrep(false)} >
+          Cancel
+        </Button>
+      </View>
+
     </Modal>
   )
 }

@@ -23,3 +23,7 @@ export const manageSubstitution = (gameId, team, playerIn, playerOut) => API.pos
 export const manageTimeout = (gameId, team) => API.post("/scoreboard/timeout", { gameId, team })
 export const addPoint = (gameId, team) => API.post("/scoreboard/addPoint", { gameId, team })
 export const getAllScores = () => API.get("/scoreboard/getAll")
+export const getScoreboard = (gameId) => API.get(`/scoreboard/getScoreboard/${gameId}`)
+
+export const postLiveLink = (livelinkData) => API.post("/livelink/postlivelink", livelinkData)
+export const getliveLinks = () => API.get("/livelink/getlivelinks")

@@ -4,6 +4,7 @@ import cors from "cors";
 import userRoutes from "./routes/users.js";
 import scheduleRoutes from "./routes/schedule.js";
 import scoreboardRoutes from "./routes/scoreboard.js";
+import livelinkRoutes from "./routes/livelinks.js";
 
 import dotenv from "dotenv";
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use("/user", userRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/scoreboard", scoreboardRoutes)
+app.use("/livelink", livelinkRoutes)
 
 mongoose.set("strictQuery", true);
 

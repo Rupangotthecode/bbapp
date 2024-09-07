@@ -18,6 +18,9 @@ const adminSchema = mongoose.Schema({
     ],
     scoreboards: [
         { type: String, required: true }
+    ],
+    livelinks: [
+        { type: String, required: true }
     ]
 });
 

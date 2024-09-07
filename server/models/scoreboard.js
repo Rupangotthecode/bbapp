@@ -26,6 +26,12 @@ const scoreboardSchema = mongoose.Schema({
         winner: { type: String, default: null },
         firstService: { type: String, default: null }
     },
+    matchMessages: [{
+        team: { type: String, default: null },
+        setNumber: { type: Number, default: null },
+        message: { type: String, default: null },
+        messageTime: { type: String, default: null }
+    }],
     matchCompletionDetails: {
         matchWinner: { type: String, required: true },
         matchLoser: { type: String, required: true },
@@ -46,10 +52,6 @@ const scoreboardSchema = mongoose.Schema({
     setNumber: { type: Number, required: true },
     sets: [{
         initialPrep: { type: Boolean, required: true },
-        matchMessages: [{
-            message: { type: String, required: true },
-            messageTime: { type: String, required: true }
-        }],
         team1Main: [{
             playerName: { type: String, required: true },
             playerNo: { type: String, required: true },

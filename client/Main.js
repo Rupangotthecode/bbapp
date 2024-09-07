@@ -13,6 +13,9 @@ import Schedule from './screens/Schedule/Schedule';
 import NewGame from './screens/NewGame/NewGame';
 import AdminControl from './screens/AdminControl/AdminControl';
 import ScoreboardList from './screens/ScoreboardList/ScoreboardList';
+import ViewScore from './screens/ViewScore/ViewScore';
+import LiveLinks from './screens/LiveLinks/LiveLinks';
+import About from './screens/About/About';
 
 const Main = () => {
 
@@ -54,6 +57,9 @@ const Main = () => {
                     <Stack.Screen name="NewGame" component={NewGame} />
                     <Stack.Screen name="AdminControl" component={AdminControl} />
                     <Stack.Screen name="ScoreboardList" component={ScoreboardList} />
+                    <Stack.Screen name="ViewScore" component={ViewScore} />
+                    <Stack.Screen name="LiveLinks" component={LiveLinks} />
+                    <Stack.Screen name="About" component={About} />
                 </Stack.Navigator>
             </SafeAreaView>
         </NavigationContainer>

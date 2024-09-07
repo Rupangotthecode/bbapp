@@ -7,6 +7,10 @@ const scoreboardReducer = (state = null, action) => {
         case "UPDATE_GAME":
             return { ...state, data: action?.payload }
 
+        case "GET_GAME":
+            console.log("reducer: \n\n\n", action?.payload.result.tournament)
+            return { ...state, data: action?.payload }
+
         default:
             return state;
     }

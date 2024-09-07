@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native";
 
-const SBLSS = StyleSheet.create({
-    SBLscrollContainer: {
-        padding: "3%",
-        paddingTop: 0,
-        flexDirection: "column",
+export const About_ss = StyleSheet.create({
+    mainContainer: {
+        height: "100%",
+        width: "100%",
         justifyContent: "flex-start",
         gap: 10
     },
-    SBLheaderContainer: {
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
+    headerContainer: {
         height: "10%",
-        padding: "3%",
+        width: "100%",
+        borderBottomEndRadius: 15,
+        borderBottomLeftRadius: 15,
+        backgroundColor: "white",
+        justifyContent: "center",
+        alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -23,10 +24,14 @@ const SBLSS = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 8,
     },
-    SBLheader: {
-        fontSize: 22,
-        color: "darkblue",
-        fontWeight: "500",
+    contentContainer: {
+        flex: 1,
+        padding: "3%",
+    },
+    aboutAppContainer: {
+        borderRadius: 15,
+        backgroundColor: "white",
+        padding: "3%",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -37,5 +42,3 @@ const SBLSS = StyleSheet.create({
         elevation: 8,
     }
 })
-
-export default SBLSS

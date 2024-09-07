@@ -2,7 +2,7 @@ import admins from "../models/auth.js";
 import scoreboards from "../models/scoreboard.js";
 import _ from "lodash"
 
-const getCurrentDate = () => {
+export const getCurrentDate = () => {
     const now = new Date();
 
     // Extract date components
@@ -48,6 +48,12 @@ export const createNewGame = async (req, res) => {
     try {
         const newGameData = req.body;
         const admin = await admins.findOne({ username: newGameData.admin.username })
+        const currentTime = getCurrentDate()
+        const initialMessage = {
+            setNumber: 1,
+            message: "The match has officially started.",
+            messageTime: currentTime
+        };
         if (admin) {
             const currentTime = getCurrentDate()
             const newScoreboard = await scoreboards.create({
@@ -79,37 +85,12 @@ export const createNewGame = async (req, res) => {
                     matchWinner: "TBD",
                     matchLoser: "TBD",
                     matchDraw: false,
-                }
+                },
+                matchMessages: [initialMessage]
             })
             await admin.scoreboards.push(newScoreboard._id)
             await admins.findByIdAndUpdate(admin._id, admin)
-            console.log(Buffer.isBuffer(newScoreboard.team1Logo)); // Should print "true"
-            let modifiedScoreboard = _.cloneDeep(newScoreboard).toObject();
-            console.log(Object.keys(modifiedScoreboard), modifiedScoreboard.tournament)
-            if (Buffer.isBuffer(newScoreboard.team1Logo)) {
-                modifiedScoreboard = {
-                    ...modifiedScoreboard,
-                    team1Logo: newScoreboard.team1Logo.toString('base64')
-                };
-                console.log('After team1Logo conversion:', typeof (modifiedScoreboard.team1Logo)); // Should print "string"
-            } else {
-                console.log('team1Logo is not a Buffer');
-            }
-            console.log(modifiedScoreboard.tournament)
-            console.log(Buffer.isBuffer(newScoreboard.team2Logo)); // Should print "true" if team2Logo is a Buffer
-            if (Buffer.isBuffer(newScoreboard.team2Logo)) {
-                modifiedScoreboard = {
-                    ...modifiedScoreboard,
-                    team2Logo: newScoreboard.team2Logo.toString('base64')
-                };
-                console.log('After team2Logo conversion:', typeof (modifiedScoreboard.team2Logo)); // Should print "string"
-            } else {
-                console.log('team2Logo is not a Buffer');
-            }
-
-            console.log(typeof modifiedScoreboard.team1Logo); // Should print "string"
-            console.log(typeof modifiedScoreboard.team2Logo); // Should print "string"
-            console.log(Object.keys(modifiedScoreboard))
+            const modifiedScoreboard = convertMongoToObj(newScoreboard)
 
             res.status(200).json({ result: modifiedScoreboard })
         } else {
@@ -125,11 +106,11 @@ export const updateScoreboard = async (req, res) => {
     try {
         const { updationData, gameId } = req.body;
 
-        console.log(updationData, gameId)
+        console.log("hello", updationData, gameId)
 
         const updatedScoreboard = await scoreboards.findByIdAndUpdate(
             gameId,
-            { tossWinner: updationData },
+            updationData,
             { new: true }
         );
 
@@ -138,7 +119,7 @@ export const updateScoreboard = async (req, res) => {
             return;
         }
         const modifiedScoreboard = convertMongoToObj(updatedScoreboard)
-        console.log(updatedScoreboard.tossWinner)
+        console.log(updatedScoreboard.matchStatus)
         res.status(200).json({ result: modifiedScoreboard });
     } catch (error) {
         console.log(error)
@@ -149,24 +130,27 @@ export const updateScoreboard = async (req, res) => {
 export const startSet = async (req, res) => {
     try {
         const { gameId, team1Main, team2Main, team1Server = null, team2Server = null } = req.body;
-        console.log(req.body)
-        const scoreboard = await scoreboards.findOne({ _id: gameId })
-        console.log(scoreboard)
+        console.log(req.body);
+
+        const scoreboard = await scoreboards.findOne({ _id: gameId });
+        console.log(scoreboard);
         if (!scoreboard) {
-            res.status(404).json({ message: "Game not found" });
-            return;
+            return res.status(404).json({ message: "Game not found" });
         }
-        const team1MainNos = new Set(team1Main.map(player => player.playerNo))
-        const team1Sub = scoreboard.team1Players.filter((player) => team1MainNos.has(player.playerNo))
-        const team2MainNos = new Set(team2Main.map(player => player.playerNo))
-        const team2Sub = scoreboard.team2Players.filter((player) => team2MainNos.has(player.playerNo))
+
+        let winnerMessage = {};
+
+        const team1MainNos = new Set(team1Main.map(player => player.playerNo));
+        const team1SubPlayers = scoreboard.team1Players.filter((player) => !team1MainNos.has(player.playerNo));
+        const team2MainNos = new Set(team2Main.map(player => player.playerNo));
+        const team2SubPlayers = scoreboard.team2Players.filter((player) => !team2MainNos.has(player.playerNo));
+
         const initialSetData = {
             initialPrep: true,
-            matchMessages: [],
-            team1Main: team1Main,
-            team2Main: team2Main,
-            team1SubPlayers: team1Sub,
-            team2SubPlayers: team2Sub,
+            team1Main,
+            team2Main,
+            team1SubPlayers,
+            team2SubPlayers,
             lastTeam1Server: team1Server,
             lastTeam2Server: team2Server,
             team1Sub: [],
@@ -177,20 +161,66 @@ export const startSet = async (req, res) => {
             team2TimeOut: false,
             setWinner: "TBD",
             setLoser: "TBD"
+        };
+
+        const currentTime = getCurrentDate(); // Moved this line here
+
+        if (scoreboard.sets.length > 0) {
+            const setNumber = scoreboard.setNumber - 1;
+            const lastSet = scoreboard.sets[setNumber];
+
+            if (lastSet.team1Score > lastSet.team2Score) {
+                lastSet.setWinner = scoreboard.team1Name;
+                lastSet.setLoser = scoreboard.team2Name;
+                scoreboard.team1MatchPoints += 1;
+            } else if (lastSet.team1Score < lastSet.team2Score) {
+                lastSet.setWinner = scoreboard.team2Name;
+                lastSet.setLoser = scoreboard.team1Name;
+                scoreboard.team2MatchPoints += 1;
+            } else {
+                lastSet.setWinner = "Tie";
+                lastSet.setLoser = "Tie";
+            }
+
+            winnerMessage = {
+                setNumber: scoreboard.setNumber,
+                message: `${lastSet.setWinner} has won the set and gained 1 match point`,
+                messageTime: currentTime
+            };
+
+            scoreboard.setNumber += 1;
+            await scoreboard.save();
         }
+
+        const matchMessage = {
+            setNumber: scoreboard.setNumber,
+            message: `Set ${scoreboard.setNumber} has started. Team 1 (${scoreboard.team1Name}) and Team 2 (${scoreboard.team2Name}) are ready.`,
+            messageTime: currentTime
+        };
+
+        // Push the initial set data and the match messages
         const updatedScoreboard = await scoreboards.findByIdAndUpdate(
             gameId,
-            { $push: { sets: initialSetData } },
-            { new: true }  // This option returns the updated document
+            {
+                $push: {
+                    sets: initialSetData,
+                    matchMessages: { $each: [winnerMessage, matchMessage] } // Combined messages
+                }
+            },
+            { new: true }
         );
+
         console.log('Updated document:', updatedScoreboard);
-        const modifiedScoreboard = convertMongoToObj(updatedScoreboard)
-        res.status(200).json({ result: modifiedScoreboard })
+        const modifiedScoreboard = convertMongoToObj(updatedScoreboard);
+        res.status(200).json({ result: modifiedScoreboard });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Something went wrong" })
+        console.log("Error in startSet:", error);
+        res.status(500).json({ message: "Something went wrong" });
     }
-}
+};
+
+
+
 
 export const increaseTeamScore = async (req, res) => {
     try {
@@ -203,23 +233,37 @@ export const increaseTeamScore = async (req, res) => {
         }
 
         const setNumber = scoreboard.setNumber;
-
         const currentSet = scoreboard.sets[setNumber - 1];
 
+        let newScore;
         if (team === scoreboard.team1Name) {
             currentSet.team1Score += 1;
-
+            newScore = currentSet.team1Score;
         } else if (team === scoreboard.team2Name) {
             currentSet.team2Score += 1;
-
+            newScore = currentSet.team2Score;
         } else {
             return res.status(400).json({ message: "Invalid team specified" });
         }
-        console.log(scoreboard.lastTeam1Server)
+
+        // Create a match message for the score increase
+        const currentTime = getCurrentDate();
+        const matchMessage = {
+            team: team,
+            setNumber: scoreboard.setNumber,
+            message: `${team} scored! New score: ${newScore}`,
+            messageTime: currentTime
+        };
+
+        // Push the match message
+        await scoreboards.findByIdAndUpdate(
+            gameId,
+            { $push: { matchMessages: matchMessage } }
+        );
+
         await scoreboard.save();
 
         const modifiedScoreboard = convertMongoToObj(scoreboard);
-
         res.status(200).json({ result: modifiedScoreboard });
     } catch (error) {
         console.error(error);
@@ -227,32 +271,46 @@ export const increaseTeamScore = async (req, res) => {
     }
 };
 
+
 export const changeServer = async (req, res) => {
     try {
         const { gameId, team, server } = req.body;
-        console.log(gameId, team, server);
+        console.log("server", gameId, team, server);
 
         const scoreboard = await scoreboards.findById(gameId);
         if (!scoreboard) {
             return res.status(404).json({ message: "Game not found" });
         }
 
-        const setNumber = scoreboard.setNumber;
-
-        const currentSet = scoreboard.sets[setNumber - 1];
-
+        let message;
         if (team === scoreboard.team1Name) {
-            scoreboard.lastTeam1Server = server
+            scoreboard.lastTeam1Server = server;
+            message = `${team} has changed their server to ${server}.`;
         } else if (team === scoreboard.team2Name) {
-            scoreboard.lastTeam2Server = server
+            scoreboard.lastTeam2Server = server;
+            message = `${team} has changed their server to ${server}.`;
         } else {
             return res.status(400).json({ message: "Invalid team specified" });
         }
+
+        // Create a match message for the server change
+        const currentTime = getCurrentDate();
+        const matchMessage = {
+            team: team,
+            setNumber: scoreboard.setNumber,
+            message: message,
+            messageTime: currentTime
+        };
         await scoreboard.save();
+        // Push the match message
+        const updatedScoreboard = await scoreboards.findByIdAndUpdate(
+            gameId,
+            { $push: { matchMessages: matchMessage } }
+        );
 
-        const modifiedScoreboard = convertMongoToObj(scoreboard);
+        const modifiedScoreboard = convertMongoToObj(updatedScoreboard);
 
-        console.log(modifiedScoreboard.las)
+        console.log(modifiedScoreboard.lastTeam1Server, modifiedScoreboard.lastTeam2Server, modifiedScoreboard.matchMessages);
 
         res.status(200).json({ result: modifiedScoreboard });
     } catch (error) {
@@ -260,6 +318,7 @@ export const changeServer = async (req, res) => {
         res.status(500).json({ message: "Something went wrong" });
     }
 };
+
 
 export const manageSubstitution = async (req, res) => {
     try {
@@ -287,15 +346,18 @@ export const manageSubstitution = async (req, res) => {
 
         let mainPlayers;
         let subPlayers;
-        let isSubLeft
+        let isSubLeft;
+        let teamName;
         if (team === scoreboard.team1Name) {
             mainPlayers = currentSet.team1Main;
             subPlayers = currentSet.team1Sub;
-            isSubLeft = !((scoreboard.gameType === "doubles" && currentSet.team1Sub.length === 1) || (scoreboard.gameType === "fives" && currentSet.team1Sub.length === 3))
+            isSubLeft = !(currentSet.team1Sub.length === 3);
+            teamName = scoreboard.team1Name;
         } else if (team === scoreboard.team2Name) {
             mainPlayers = currentSet.team2Main;
             subPlayers = currentSet.team2Sub;
-            isSubLeft = !((scoreboard.gameType === "doubles" && currentSet.team2Sub.length === 1) || (scoreboard.gameType === "fives" && currentSet.team2Sub.length === 3))
+            isSubLeft = !(currentSet.team2Sub.length === 3);
+            teamName = scoreboard.team2Name;
         } else {
             return res.status(400).json({ message: "Invalid team specified" });
         }
@@ -304,13 +366,28 @@ export const manageSubstitution = async (req, res) => {
         if (playerIndex === -1) {
             return res.status(400).json({ message: "Player out not found in main players" });
         }
+
         if (isSubLeft) {
-            console.log("here I am")
             mainPlayers[playerIndex] = substitution.in;
             subPlayers.push(substitution);
         }
 
-        console.log(scoreboard.sets[setNumber - 1].team1Sub)
+        // Create a match message for the substitution
+        const currentTime = getCurrentDate();
+        const matchMessage = {
+            team: team,
+            setNumber: scoreboard.setNumber,
+            message: `${teamName} substituted ${playerOut.playerName} with ${playerIn.playerName}.`,
+            messageTime: currentTime
+        };
+
+        // Push the match message
+        await scoreboards.findByIdAndUpdate(
+            gameId,
+            { $push: { matchMessages: matchMessage } }
+        );
+
+        console.log(scoreboard.sets[setNumber - 1].team1Sub);
 
         await scoreboard.save();
 
@@ -323,9 +400,10 @@ export const manageSubstitution = async (req, res) => {
     }
 };
 
+
 export const manageTimeout = async (req, res) => {
     try {
-        const { gameId, team } = req.body
+        const { gameId, team } = req.body;
 
         const scoreboard = await scoreboards.findById(gameId);
         if (!scoreboard) {
@@ -335,25 +413,36 @@ export const manageTimeout = async (req, res) => {
         const setNumber = scoreboard.setNumber;
         const currentSet = scoreboard.sets[setNumber - 1];
 
-        if (team === scoreboard.team1Name && currentSet.team1TimeOut) {
-            res.status(404).json({ message: "already taken timeout" })
-            return
+        if (team === scoreboard.team1Name) {
+            if (currentSet.team1TimeOut) {
+                return res.status(404).json({ message: "Team 1 has already taken a timeout" });
+            }
+            currentSet.team1TimeOut = true;
+        } else if (team === scoreboard.team2Name) {
+            if (currentSet.team2TimeOut) {
+                return res.status(404).json({ message: "Team 2 has already taken a timeout" });
+            }
+            currentSet.team2TimeOut = true;
+        } else {
+            return res.status(400).json({ message: "Invalid team specified" });
         }
 
-        else {
-            currentSet.team1TimeOut = true
-        }
+        // Create a match message for the timeout
+        const currentTime = getCurrentDate();
+        const matchMessage = {
+            team: team,
+            setNumber: scoreboard.setNumber,
+            message: `${team} has taken a timeout.`,
+            messageTime: currentTime
+        };
 
-        if (team === scoreboard.team2Name && currentSet.team2TimeOut) {
-            res.status(404).json({ message: "already taken timeout" })
-            return
-        }
+        // Push the match message
+        await scoreboards.findByIdAndUpdate(
+            gameId,
+            { $push: { matchMessages: matchMessage } }
+        );
 
-        else {
-            currentSet.team2TimeOut = true
-        }
-
-        await scoreboard.save()
+        await scoreboard.save();
 
         const modifiedScoreboard = convertMongoToObj(scoreboard);
 
@@ -363,13 +452,13 @@ export const manageTimeout = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Something went wrong" });
     }
-}
+};
+
 
 export const getAllScoreBoards = async (req, res) => {
     try {
         console.log("hi")
         const allScores = await scoreboards.find()
-        console.log(allScores)
         allScores.forEach(score => {
             convertMongoToObj(score)
         });
@@ -382,4 +471,19 @@ export const getAllScoreBoards = async (req, res) => {
         res.status(500).json({ message: "Something went wrong" });
     }
 
+}
+
+export const getScoreboard = async (req, res) => {
+    try {
+        const gameId = req.params.gameId
+        const scoreboard = await scoreboards.findById(gameId)
+        if (!scoreboard) {
+            return res.status(404).json({ message: "Scoreboard not found" });
+        }
+        const modifiedScoreboard = convertMongoToObj(scoreboard);
+        res.status(200).json({ result: modifiedScoreboard });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Something went wrong" });
+    }
 }
