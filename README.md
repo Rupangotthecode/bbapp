@@ -1,7 +1,3 @@
-Here's a sample GitHub README in markdown format for your app:
-
----
-
 # Auditory Therapy Kiosk App
 
 ## Overview
