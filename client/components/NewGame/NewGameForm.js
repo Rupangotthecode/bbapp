@@ -7,6 +7,7 @@ import * as FileSystem from 'expo-file-system';
 import PlayerDetails from './PlayerDetails'
 import { NGCompStyleSheet } from './NewGameComp_ss'
 import { startGame } from '../../actions/scoreboard';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 const NewGameForm = (props) => {
 
@@ -57,7 +58,9 @@ const NewGameForm = (props) => {
         }
     };
 
-    const handleStartGame = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleStartGame = async () => {
         // Create the scoreboardData object
         const scoreboardData = {
             tournament: tournament,
@@ -83,22 +86,30 @@ const NewGameForm = (props) => {
             team2LogoPreview: team2LogoPreview,
         };
 
+        // Check if all fields are filled
         const allFieldsFilled = Object.values(scoreboardData).every((value) => {
             if (Array.isArray(value)) return value.length > 0;
             if (typeof value === "object") return value !== null;
             return value !== "";
         });
 
+        // Check if player details are satisfied
         const playerDetailsSatisfied = scoreboardData.team1List.every((value) => {
-            if (value.playerName !== "" && value.playerNo !== "") return true
-            else return false
-        })
+            return value.playerName !== "" && value.playerNo !== "";
+        });
 
         if (allFieldsFilled) {
-            if (((scoreboardData.gameType === "doubles" && scoreboardData.team1List.length === 3) || (scoreboardData.gameType === "fives" && scoreboardData.team1List.length === 10)) && playerDetailsSatisfied) {
-                dispatch(startGame(scoreboardData, props.navigate));
-            }
-            else {
+            if (((scoreboardData.gameType === "doubles" && scoreboardData.team1List.length === 3) ||
+                (scoreboardData.gameType === "fives" && scoreboardData.team1List.length === 10)) && playerDetailsSatisfied) {
+                setLoading(true);  // Show activity indicator
+                try {
+                    await dispatch(startGame(scoreboardData, props.navigate));
+                } catch (error) {
+                    alert("An error occurred. Please try again.");
+                } finally {
+                    setLoading(false);  // Hide activity indicator
+                }
+            } else {
                 alert("Please fill in all the fields before starting the game.");
             }
         } else {
@@ -340,7 +351,7 @@ const NewGameForm = (props) => {
                 )}
                 <Button mode="contained" textColor='white' buttonColor='darkblue'
                     onPress={() => handleStartGame()}>
-                    Start Game
+                    {loading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Start Game"}
                 </Button>
             </View>
         </ScrollView>

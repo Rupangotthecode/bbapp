@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { authCompStyleSheet } from './AuthComponent_ss'
 import { useDispatch } from "react-redux"
 import { signup } from '../../actions/auth'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const Signup = (props) => {
 
@@ -17,14 +19,26 @@ const Signup = (props) => {
     const [repassword, setRepassword] = useState('')
     const [adminCode, setAdminCode] = useState('')
 
-    const handleSignup = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleSignup = async () => {
         if (username && name && password && repassword && adminCode) {
             if (password === repassword) {
-                dispatch(signup({ username, name, password, adminCode }, navigate))
+                setLoading(true);  // Show the activity indicator
+                try {
+                    await dispatch(signup({ username, name, password, adminCode }, navigate));
+                } catch (error) {
+                    alert("Signup failed. Please try again.");
+                } finally {
+                    setLoading(false);  // Hide the activity indicator
+                }
+            } else {
+                alert("Passwords do not match.");
             }
-
+        } else {
+            alert("Please fill in all required fields.");
         }
-    }
+    };
 
     return (
         <View style={authCompStyleSheet.signupMainContainer}>
@@ -81,7 +95,7 @@ const Signup = (props) => {
                     secureTextEntry
                 />
                 <Button buttonColor="darkblue" mode="contained" onPress={() => handleSignup()}>
-                    Sign Up
+                    {loading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Login"}
                 </Button>
                 <View style={authCompStyleSheet.signupSwitcherContainer}>
                     <Text>Already an Admin?</Text>

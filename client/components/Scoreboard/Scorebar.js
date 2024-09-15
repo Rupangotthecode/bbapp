@@ -5,7 +5,6 @@ import { SBCstyleSheet } from './ScoreboardComp_ss'
 
 const Scorebar = (props) => {
 
-    console.log(props.gameDetails.tournament)
 
     return (
         <View style={SBCstyleSheet.SBmainContainer}>

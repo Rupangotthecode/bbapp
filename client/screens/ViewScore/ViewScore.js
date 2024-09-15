@@ -20,7 +20,6 @@ const ViewScore = () => {
     const showInfoModal = () => setShowInfo(true);
     const hideInfoModal = () => setShowInfo(false);
 
-    console.log("\n\n\n\n", gameDetails)
 
     return (
         <View style={VS_ss.mainContainer}>

@@ -14,13 +14,12 @@ export const ACStyleSheet = StyleSheet.create({
     AClowerContainer: {
         height: "88%",
         width: "100%",
-        padding: "2%"
     },
     ACmodalContainer: {
         backgroundColor: 'white',
         margin: 10,
         padding: 20,
-        borderRadius: 15
+        borderRadius: 15,
     },
     ACmodalBodyText: {
         fontSize: 18,

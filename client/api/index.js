@@ -1,13 +1,13 @@
 import axios from "axios";
 import { Platform } from "react-native";
 
-// const API = axios.create({
-//     baseURL: "https://bbapp-52xe.onrender.com",
-// });
-
 const API = axios.create({
-    baseURL: Platform.OS === 'ios' ? "http://192.168.1.2:5000/" : "http://10.0.2.2:5000/",
+    baseURL: "https://bbapp-52xe.onrender.com",
 });
+
+// const API = axios.create({
+//     baseURL: Platform.OS === 'ios' ? "http://192.168.1.2:5000/" : "http://10.0.2.2:5000/",
+// });
 
 export const logIn = (authData) => API.post("/user/login", authData);
 export const signUp = (authData) => API.post("/user/signup", authData);

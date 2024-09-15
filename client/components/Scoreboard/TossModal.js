@@ -4,6 +4,8 @@ import { Button, Modal, RadioButton } from 'react-native-paper'
 import { ACStyleSheet } from '../../screens/AdminControl/AdminControl_ss'
 import { useDispatch } from 'react-redux'
 import { completeToss } from '../../actions/scoreboard'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const TossModal = (props) => {
 
@@ -14,8 +16,17 @@ const TossModal = (props) => {
   const [tossWinner, setTossWinner] = useState("")
   const [firstServer, setFirstServer] = useState("")
 
-  const handleToss = () => {
-    dispatch(completeToss(tossWinner, firstServer, gameDetails._id, props.setShowToss));
+  const [loading, setLoading] = useState(false);
+
+  const handleToss = async () => {
+    setLoading(true);  // Show the activity indicator
+    try {
+      await dispatch(completeToss(tossWinner, firstServer, gameDetails._id, props.setShowToss));
+    } catch (error) {
+      alert("An error occurred during the toss. Please try again.");
+    } finally {
+      setLoading(false);  // Hide the activity indicator
+    }
   };
 
   return (
@@ -63,7 +74,7 @@ const TossModal = (props) => {
         </View>
       </View>
       <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleToss} >
-        Submit Toss Results
+        {loading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Submit Toss Results"}
       </Button>
     </Modal>
   )

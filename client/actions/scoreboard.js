@@ -121,7 +121,6 @@ export const endMatch = (gameId, matchWinner, matchLoser, draw) => async (dispat
 export const getAllScores = () => async (dispatch) => {
     try {
         const { data } = await api.getAllScores()
-        console.log(data)
         dispatch({ type: "GET_ALL_SCORES", payload: data })
     } catch (error) {
         console.log(error)
@@ -131,7 +130,6 @@ export const getAllScores = () => async (dispatch) => {
 export const getScoreboard = (gameId) => async (dispatch) => {
     try {
         const { data } = await api.getScoreboard(gameId)
-        console.log(data)
         dispatch({ type: "GET_GAME", payload: data })
     } catch (error) {
         console.log(error)

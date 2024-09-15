@@ -4,16 +4,24 @@ import SBLCompSS from './ScoreboardComp_ss'
 import React from 'react'
 import { getScoreboard } from '../../actions/scoreboard'
 
+
 const ScoreboardListItem = (props) => {
 
   const gameDetails = props.gameDetails
-
+  console.log("HI", props.navLocation)
   const dispatch = useDispatch()
 
-  const handlePress = () => {
-    dispatch(getScoreboard(gameDetails._id))
-    props.navigate("ViewScore")
-  }
+  const handlePress = async () => {
+    props.setLoading(true);  // Show the activity indicator
+    try {
+      await dispatch(getScoreboard(gameDetails._id));
+      props.navigate(props.navLocation);  // Navigate after the dispatch completes
+    } catch (error) {
+      alert("Failed to retrieve the scoreboard. Please try again.");
+    } finally {
+      props.setLoading(false);  // Hide the activity indicator
+    }
+  };
 
   return (
     <TouchableNativeFeedback onPress={handlePress}>

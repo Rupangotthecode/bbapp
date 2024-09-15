@@ -4,11 +4,14 @@ import { Button, Modal, RadioButton } from 'react-native-paper'
 import { ACStyleSheet } from '../../screens/AdminControl/AdminControl_ss'
 import { useDispatch } from 'react-redux'
 import { manageSubstitution } from '../../actions/scoreboard'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const SubstitutionModal = (props) => {
 
     const dispatch = useDispatch()
 
+    const [isLoading, setIsLoading] = useState(false);
     const [playerIn, setPlayerIn] = useState({})
     const [playerOut, setPlayerOut] = useState({})
 
@@ -16,15 +19,25 @@ const SubstitutionModal = (props) => {
         !props.mainPlayers?.some(mainPlayer => mainPlayer.playerNo === teamPlayer.playerNo)
     );
 
-    const handleSubstitution = () => {
+    const handleSubstitution = async () => {
         if (playerIn.playerNo && playerOut.playerNo) {
-            dispatch(manageSubstitution(props.gameId, props.teamName, playerIn, playerOut))
-            props.setShowSub(false)
+            setIsLoading(true);
+            try {
+                await dispatch(manageSubstitution(props.gameId, props.teamName, playerIn, playerOut));
+                props.setShowSub(false);
+                // Reset playerIn and playerOut if needed
+                setPlayerIn({ playerNo: null });
+                setPlayerOut({ playerNo: null });
+            } catch (error) {
+                console.error("Error managing substitution:", error);
+                alert("An error occurred while managing the substitution. Please try again.");
+            } finally {
+                setIsLoading(false);
+            }
+        } else {
+            alert('Please select both players');
         }
-        else {
-            alert('Please select both players')
-        }
-    }
+    };
 
     return (
         <Modal visible={props.showSub} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
@@ -55,7 +68,7 @@ const SubstitutionModal = (props) => {
             ))}
             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                 <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleSubstitution} >
-                    Substitute Players
+                    {isLoading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Substitute Players"}
                 </Button>
                 <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowSub(false)} >
                     Cancel

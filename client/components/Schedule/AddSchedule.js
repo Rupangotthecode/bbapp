@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 import { ScheduleCompStyleSheet } from './ScheduleComp_ss.js'
 import { addSchedule } from '../../actions/schedule.js'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const AddSchedule = (props) => {
 
@@ -25,14 +27,17 @@ const AddSchedule = (props) => {
     const [poolNo, setPoolNo] = useState("")
     const [matchNo, setmatchNo] = useState("")
     const [openDate, setOpenDate] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const onChange = (e, value) => {
         setDate(value)
         setOpenDate(false)
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (date && title && tournament && time) {
+            setIsLoading(true);
+
             const scheduleData = {
                 title: formatDate(date),
                 itemTime: time,
@@ -42,10 +47,20 @@ const AddSchedule = (props) => {
                 poolNo: poolNo,
                 matchNo: matchNo,
                 user: props.user
+            };
+
+            try {
+                await dispatch(addSchedule(scheduleData, props.navigate));
+            } catch (error) {
+                console.error("Error adding schedule:", error);
+                alert("An error occurred while adding the schedule. Please try again.");
+            } finally {
+                setIsLoading(false);
             }
-            dispatch(addSchedule(scheduleData, props.navigate))
+        } else {
+            alert("Please fill in all required fields");
         }
-    }
+    };
 
     return (
         <View style={ScheduleCompStyleSheet.scheduleMainContainer}>
@@ -124,7 +139,7 @@ const AddSchedule = (props) => {
                 />
                 <Button mode="contained" textColor='white' buttonColor='darkblue'
                     onPress={onSubmit}>
-                    Add to Schedule
+                    {isLoading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Add To Schedule"}
                 </Button>
             </View>
         </View>

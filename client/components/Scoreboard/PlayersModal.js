@@ -5,7 +5,6 @@ import { Modal } from 'react-native-paper';
 
 const PlayersModal = (props) => {
 
-    console.log("in players modal", props.teamPlayers)
 
     const substitutePlayers = props.teamPlayers?.filter(teamPlayer =>
         !props.mainPlayers?.some(mainPlayer => mainPlayer.playerNo === teamPlayer.playerNo)

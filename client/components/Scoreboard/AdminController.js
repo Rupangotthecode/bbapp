@@ -12,7 +12,6 @@ const AdminController = (props) => {
     }
 
     const handleOpenServerModal = () => {
-        console.log("handler", props.server)
         props.setServers(props.mainPlayers.filter((val) => !(val.playerName === props.server)))
         props.setShowServerModal(true)
     }
@@ -26,7 +25,7 @@ const AdminController = (props) => {
     }
 
     const handleTimeout = () => {
-        console.log("ih")
+
         props.setShowTimeOutModal(true)
     }
 

@@ -4,25 +4,33 @@ import React, { useState } from 'react'
 import { ACStyleSheet } from '../../screens/AdminControl/AdminControl_ss'
 import { changeServer } from '../../actions/scoreboard'
 import { Button, Modal, RadioButton } from 'react-native-paper'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const ServerModal = (props) => {
 
     const dispatch = useDispatch()
 
     const [selectedServer, setSelectedServer] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleChangeServer = () => {
-        console.log(selectedServer)
+    const handleChangeServer = async () => {
         if (selectedServer !== "") {
-            console.log("server:", selectedServer)
-            dispatch(changeServer(props.gameId, props.teamName, selectedServer))
-            props.setShowServerModal(false)
-            setSelectedServer("")
+            setIsLoading(true);
+            try {
+                await dispatch(changeServer(props.gameId, props.teamName, selectedServer));
+                props.setShowServerModal(false);
+                setSelectedServer("");
+            } catch (error) {
+                console.error("Error changing server:", error);
+                alert("An error occurred while changing the server. Please try again.");
+            } finally {
+                setIsLoading(false);
+            }
+        } else {
+            alert("Please select a server");
         }
-        else {
-            alert("Please select a server")
-        }
-    }
+    };
 
     return (
         <Modal visible={props.showServerModal} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
@@ -41,7 +49,7 @@ const ServerModal = (props) => {
             ))}
             <View style={{ flexDirection: "row", justifyContent: "space-evenly", }}>
                 <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleChangeServer} >
-                    {props.initialSelection ? "Start Set" : "Change Server"}
+                    {isLoading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : (props.initialSelection ? "Start Set" : "Change Server")}
                 </Button>
                 {!props.initialSelection && <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowServerModal(false)} >
                     Cancel

@@ -1,9 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Modal } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { endMatch } from '../../actions/scoreboard'
 import { ACStyleSheet } from '../../screens/AdminControl/AdminControl_ss'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const EndMatchModal = (props) => {
     const dispatch = useDispatch()
@@ -28,11 +30,21 @@ const EndMatchModal = (props) => {
         matchDraw = true
     }
 
-    const handleEndMatch = () => {
-        dispatch(endMatch(gameDetails._id, matchWinner, matchLoser, matchDraw))
-        props.setShowEndMatchModal(false)
-        props.navigate("Home")
-    }
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleEndMatch = async () => {
+        setIsLoading(true);
+        try {
+            await dispatch(endMatch(gameDetails._id, matchWinner, matchLoser, matchDraw));
+            props.setShowEndMatchModal(false);
+            props.navigate("Home");
+        } catch (error) {
+            console.error("Error ending match:", error);
+            alert("An error occurred while ending the match. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Modal visible={props.showEndMatchModal} onDismiss={() => props.setShowEndMatchModal(false)} contentContainerStyle={ACStyleSheet.ACmodalContainer} dismissable={false}>
@@ -40,7 +52,7 @@ const EndMatchModal = (props) => {
             <Text style={{ fontSize: 18, fontWeight: "400", color: "darkblue", textAlign: "center", marginBottom: 10 }}>The match winner will be {matchWinner}</Text>
             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                 <Button mode="contained" textColor='white' buttonColor='darkblue' onPress={handleEndMatch} >
-                    Yes
+                    {isLoading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Yes"}
                 </Button>
                 <Button mode="outlined" textColor='darkblue' onPress={() => props.setShowEndMatchModal(false)} >
                     Cancel

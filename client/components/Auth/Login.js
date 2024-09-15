@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { authCompStyleSheet } from './AuthComponent_ss'
 import { login } from '../../actions/auth'
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 const Login = (props) => {
 
@@ -12,11 +14,22 @@ const Login = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleLogin = async () => {
         if (username && password) {
-            dispatch(login({ username, password }, props.navigate))
+            setLoading(true);  // Show the activity indicator
+            try {
+                await dispatch(login({ username, password }, props.navigate));
+            } catch (error) {
+                alert("Login failed. Please check your credentials and try again.");
+            } finally {
+                setLoading(false);  // Hide the activity indicator
+            }
+        } else {
+            alert("Please enter both username and password.");
         }
-    }
+    };
 
     return (
         <View style={authCompStyleSheet.loginMainContainer}>
@@ -44,7 +57,7 @@ const Login = (props) => {
                     secureTextEntry
                 />
                 <Button buttonColor="darkblue" mode="contained" onPress={() => handleLogin()}>
-                    Login
+                    {loading ? <ActivityIndicator animating={true} color={MD2Colors.white} /> : "Login"}
                 </Button>
                 <View style={authCompStyleSheet.signupSwitcherContainer}>
                     <Text>Create admin account?</Text>
